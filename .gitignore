@@ -1,0 +1,20 @@
+# Python
+*.pyc
+__pycache__/
+
+# Virtual environment
+env/
+
+# Database (optional)
+db.sqlite3
+
+# macOS
+.DS_Store
+
+# VSCode / PyCharm / JetBrains
+.vscode/
+.idea/
+
+# Migrations (optional, depends on team)
+*/migrations/__pycache__/
+*/migrations/*.pyc
