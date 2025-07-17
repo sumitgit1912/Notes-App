@@ -61,16 +61,30 @@ WSGI_APPLICATION = 'notes.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': config('DATABASE_NAME'),
-        'USER' : config('DATABASE_USER'),
-        'PASSWORD':config('DATABASE_PASSWORD'),
-        'HOST': 'localhost',
-        'PORT': '3306'
+USE_POSTGRES = config("USE_POSTGRES", default=False, cast=bool)
+
+if USE_POSTGRES:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': config('POSTGRES_DB'),
+            'USER': config('POSTGRES_USER'),
+            'PASSWORD': config('POSTGRES_PASSWORD'),
+            'HOST': config('POSTGRES_HOST', default='localhost'),
+            'PORT': config('POSTGRES_PORT', default='5432'),
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': config('DATABASE_NAME'),
+            'USER' : config('DATABASE_USER'),
+            'PASSWORD':config('DATABASE_PASSWORD'),
+            'HOST': 'localhost',
+            'PORT': '3306'
+        }
+    }
 
 
 # Password validation
