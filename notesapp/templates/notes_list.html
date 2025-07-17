@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% block title %}Your Notes - Notes App{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+    <h2 class="mb-0">Your Notes</h2>
+    <form method="get" class="d-flex mb-2 mb-md-0" style="max-width: 300px;">
+        <input type="text" name="q" class="form-control me-2" placeholder="Search notes..." value="{{ request.GET.q }}">
+        <button type="submit" class="btn btn-outline-primary">Search</button>
+    </form>
+</div>
+
+{% if notes %}
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for note in notes %}
+            <div class="col">
+                <div class="card h-100 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            <a href="{% url 'note_detail' note.pk %}" class="text-decoration-none fw-semibold">{{ note.title }}</a>
+                        </h5>
+                        <p class="card-text text-muted small mb-2">
+                            Last updated: {{ note.updated_at|date:"M d, Y H:i" }}
+                        </p>
+                        <div class="d-flex justify-content-end gap-2">
+                            <a href="{% url 'update_note' note.pk %}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                            <a href="{% url 'delete_note' note.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagination -->
+    {% if is_paginated %}
+        <nav class="mt-4">
+            <ul class="pagination justify-content-center">
+                {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?q={{ request.GET.q }}&page={{ page_obj.previous_page_number }}">Previous</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled"><span class="page-link">Previous</span></li>
+                {% endif %}
+                {% for num in paginator.page_range %}
+                    {% if page_obj.number == num %}
+                        <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                        <li class="page-item"><a class="page-link" href="?q={{ request.GET.q }}&page={{ num }}">{{ num }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?q={{ request.GET.q }}&page={{ page_obj.next_page_number }}">Next</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled"><span class="page-link">Next</span></li>
+                {% endif %}
+            </ul>
+        </nav>
+    {% endif %}
+{% else %}
+    <div class="text-center py-5">
+        <img src="https://cdn-icons-png.flaticon.com/512/4076/4076549.png" alt="No notes" width="120" class="mb-3 opacity-50">
+        <h4 class="mb-2">No notes found</h4>
+        <p class="text-muted">You haven't created any notes yet. Click <a href="{% url 'create_note' %}">here</a> to add your first note!</p>
+    </div>
+{% endif %}
+{% endblock %}

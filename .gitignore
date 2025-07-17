@@ -5,8 +5,8 @@ __pycache__/
 # Virtual environment
 env/
 
-# Database (optional)
-db.sqlite3
+# Environment variable files (contains secrets like SECRET_KEY, DB credentials, etc.)
+.env
 
 # macOS
 .DS_Store
