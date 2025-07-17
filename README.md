@@ -109,7 +109,9 @@ To switch to Function-Based Views (FBV):
 2. Find the line:
    ```python
    path('', include('notesapp.urls')),
+   ```
 3. Change it to:
+    ```
     path('', include('notesapp.urls1')),
     ```
 
