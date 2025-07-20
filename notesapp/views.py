@@ -10,13 +10,6 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib import messages
 from django.db.models import Q
 
-# Run once during startup (not safe for production)
-from django.contrib.auth import get_user_model
-User = get_user_model()
-
-if not User.objects.filter(username="admin").exists():
-    User.objects.create_superuser("admin", "admin@example.com", "securepassword")
-
 
 class NotesListView(LoginRequiredMixin, ListView):
     model = Note
@@ -88,5 +81,11 @@ class CustomLogoutView(LoginRequiredMixin, LogoutView):
         messages.success(request, "👋 You have been logged out successfully.")
         return super().dispatch(request, *args, **kwargs)
     
+# To create superuser by script not command 
+# Run once during startup (not safe for production)
+# from django.contrib.auth import get_user_model
+# User = get_user_model()
 
+# if not User.objects.filter(username="admin").exists():
+#     User.objects.create_superuser("admin", "admin@example.com", "securepassword")
 
