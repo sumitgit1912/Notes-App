@@ -6,11 +6,14 @@ A full-featured Notes application built using Django. This project includes both
 
 ## 🚀 Features
 
-- User registration & login
-- Create, read, update, delete (CRUD) personal notes
+- User Registration & Login
+- Create, Edit, Delete Personal Notes
+- Admin can view all users’ notes
 - Authenticated views for each user
 - Secure configuration using `.env`
 - CBV and FBV versions side-by-side
+- Django Admin Panel
+- Search and filter notes (Admin panel)
 
 ---
 
@@ -133,6 +136,22 @@ See requirements.txt. Key packages:
     .env is in .gitignore and not tracked
 
     Production-ready settings supported (DEBUG=False, ALLOWED_HOSTS, etc.)
+
+## 🚀 Live Demo
+
+🔗 [Click here to view the live app](https://notes-app-zpdm.onrender.com)
+
+## 🔐 Test Credentials
+
+### 👤 Test User Login
+- **Username:** testuser  
+- **Password:** Test@123
+
+## 🧪 Want to Try It Yourself?
+
+You can also sign up as a new user using the **Sign Up** button on the login page and create your own notes.
+
+---
 
 
 
